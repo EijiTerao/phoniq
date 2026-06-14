@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}文字のつながりから学ぶ | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="breadcrumb"><a href="/theory">理論を学ぶ</a> › Layer A</div>
+  <h1>🔤 文字のつながりから学ぶ</h1>
+  <p>スペルパターンと発音の対応関係を学びます。カテゴリを選んでください。</p>
+</div>
+
+<div class="category-grid">
+  {% for cat in categories %}
+  <a href="/theory/spelling/{{ cat.id }}" class="category-card">
+    <div class="cat-icon">{{ cat.icon }}</div>
+    <h3>{{ cat.title }}</h3>
+    <p>{{ cat.description[:60] }}...</p>
+    <span class="cat-count">
+      {% if cat.rules | length > 0 %}
+        {% set rule_count = namespace(n=0) %}
+        {% for r in cat.rules %}
+          {% set rule_count.n = rule_count.n + 1 %}
+        {% endfor %}
+        {{ rule_count.n }} パターン
+      {% endif %}
+    </span>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

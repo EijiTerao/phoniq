@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}PhonIQ{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- ナビゲーション -->
+  <nav class="navbar">
+    <a href="/" class="nav-logo">Phon<span>IQ</span></a>
+    <ul class="nav-links">
+      <li><a href="/theory" class="{% if request.path.startswith('/theory') %}active{% endif %}">📖 理論を学ぶ</a></li>
+      <li><a href="/practice" class="{% if request.path.startswith('/practice') %}active{% endif %}">🎯 問題を解く</a></li>
+    </ul>
+  </nav>
+
+  <!-- メインコンテンツ -->
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.title }} | IPA | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="/theory">理論を学ぶ</a> › 
+    <a href="/theory/ipa">Layer B</a> › 
+    {{ category.title }}
+  </div>
+  <h1 style="color: {{ category.color }}">{{ category.title }}</h1>
+</div>
+
+<div class="ipa-symbols-grid">
+  {% for sym in category.symbols %}
+  <div class="ipa-symbol-card">
+    <!-- 記号 -->
+    <div class="symbol-display" style="background: {{ category.color }}15; border: 2px solid {{ category.color }};">
+      <span class="big-symbol" style="color: {{ category.color }};">{{ sym.symbol }}</span>
+      <span class="symbol-name">{{ sym.name }}</span>
+    </div>
+
+    <!-- 日本語の近似音 -->
+    <div class="symbol-meta">
+      <div class="meta-row">
+        <span class="meta-label">日本語に近い音:</span>
+        <span class="meta-value">{{ sym.japanese }}</span>
+      </div>
+
+      <!-- 口の構え（ビジュアル） -->
+      <div class="meta-row">
+        <span class="meta-label">舌の位置:</span>
+        <span class="meta-value mouth-info">{{ sym.tongue }}</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">唇の形:</span>
+        <span class="meta-value">{{ sym.lips }}</span>
+      </div>
+
+      <!-- ヒント -->
+      <div class="meta-tips">
+        💡 {{ sym.tips }}
+      </div>
+
+      <!-- 例単語 -->
+      <div class="meta-example">
+        <strong>例:</strong>
+        <span class="ex-word">{{ sym.example_word }}</span>
+        <span class="ex-ipa">/{{ sym.example_ipa }}/</span>
+        <!-- Phase2へのリンク -->
+        <a href="/practice/quiz?word={{ sym.example_word }}" class="review-link">練習 →</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

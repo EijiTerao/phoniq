@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}IPA発音記号から学ぶ | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="breadcrumb"><a href="/theory">理論を学ぶ</a> › Layer B</div>
+  <h1>🔣 発音記号（IPA）から学ぶ</h1>
+</div>
+
+<!-- なぜIPAを学ぶか -->
+<div class="why-ipa-section">
+  <h2>📣 発音記号を学ぶ意義</h2>
+  <div class="why-grid">
+    {% for point in ipa_data.why_ipa.points %}
+    <div class="why-card">
+      <div class="why-icon">{{ point.icon }}</div>
+      <h3>{{ point.title }}</h3>
+      <p>{{ point.detail }}</p>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- IPA記号カテゴリ一覧 -->
+<h2 class="section-title">📊 IPA記号を学ぶ</h2>
+<div class="ipa-category-grid">
+  {% for cat in ipa_data.categories %}
+  <a href="/theory/ipa/{{ cat.id }}" class="ipa-cat-card" style="border-top: 4px solid {{ cat.color }};">
+    <h3>{{ cat.title }}</h3>
+    <div class="ipa-symbols-preview">
+      {% for sym in cat.symbols[:4] %}
+      <span class="ipa-symbol-chip" style="background: {{ cat.color }}22; color: {{ cat.color }};">{{ sym.symbol }}</span>
+      {% endfor %}
+      {% if cat.symbols | length > 4 %}
+      <span class="ipa-symbol-chip more">+{{ cat.symbols | length - 4 }}</span>
+      {% endif %}
+    </div>
+    <span class="btn btn-outline">詳しく見る →</span>
+  </a>
+  {% endfor %}
+</div>
+{% endblock %}

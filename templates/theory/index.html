@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}理論を学ぶ | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>📖 理論を学ぶ</h1>
+  <p>2つの視点から発音の仕組みを理解しましょう</p>
+</div>
+
+<div class="layer-cards">
+  <!-- Layer A -->
+  <a href="/theory/spelling" class="layer-card layer-a">
+    <div class="layer-badge">Layer A</div>
+    <div class="layer-icon">🔤</div>
+    <h2>文字のつながりから学ぶ</h2>
+    <p>
+      ea, oo, ou, ar などのスペルパターンから発音を予測する法則を学びます。
+      原則と例外を分けて整理することで、初見の単語でも発音が推測できるようになります。
+    </p>
+    <div class="layer-topics">
+      {% for cat in spelling_categories %}
+      <span class="topic-tag">{{ cat.icon }} {{ cat.title }}</span>
+      {% endfor %}
+    </div>
+    <span class="btn btn-outline">学習を始める →</span>
+  </a>
+
+  <!-- Layer B -->
+  <a href="/theory/ipa" class="layer-card layer-b">
+    <div class="layer-badge">Layer B</div>
+    <div class="layer-icon">🔣</div>
+    <h2>発音記号（IPA）から学ぶ</h2>
+    <p>
+      国際音声記号の各シンボルを、舌・唇の位置などビジュアルで学びます。
+      IPAを習得すれば、英語だけでなくフランス語・スペイン語など世界中の言語の発音がわかります。
+    </p>
+    <div class="layer-topics">
+      {% for cat in ipa_symbols.categories %}
+      <span class="topic-tag">{{ cat.title }}</span>
+      {% endfor %}
+    </div>
+    <span class="btn btn-outline">学習を始める →</span>
+  </a>
+</div>
+{% endblock %}

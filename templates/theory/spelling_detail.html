@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}{{ category.title }} | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div class="breadcrumb">
+    <a href="/theory">理論を学ぶ</a> › 
+    <a href="/theory/spelling">Layer A</a> › 
+    {{ category.title }}
+  </div>
+  <h1>{{ category.icon }} {{ category.title }}</h1>
+  <p>{{ category.description }}</p>
+</div>
+
+{% for rule in category.rules %}
+<div class="rule-card">
+  <!-- パターンヘッダー -->
+  <div class="rule-header">
+    {% if rule.letter is defined %}
+      <h2 class="rule-pattern">{{ rule.letter }}</h2>
+      <div class="rule-sounds">
+        {% if rule.sound_short is defined %}<span class="sound-badge short">短: /{{ rule.sound_short }}/</span>{% endif %}
+        {% if rule.sound_long is defined %}<span class="sound-badge long">長: /{{ rule.sound_long }}/</span>{% endif %}
+      </div>
+    {% else %}
+      <h2 class="rule-pattern">{{ rule.pattern }}</h2>
+      {% if rule.sound is defined %}<span class="sound-badge">/ {{ rule.sound }} /</span>{% endif %}
+    {% endif %}
+  </div>
+
+  <!-- 法則の説明 -->
+  <div class="rule-body">
+    <div class="rule-section">
+      <h3>📌 原則</h3>
+      <p class="rule-text">{{ rule.rule | replace('\n', '<br>') | safe }}</p>
+    </div>
+
+    <!-- 原則の例 -->
+    {% set examples = rule.examples_short if rule.examples_short is defined else rule.examples_rule %}
+    {% if examples %}
+    <div class="rule-section">
+      <h3>✅ 原則の例</h3>
+      <div class="word-examples">
+        {% for ex in examples %}
+        <div class="word-chip">
+          <span class="ex-word">{{ ex.word }}</span>
+          <span class="ex-ipa">/{{ ex.ipa }}/</span>
+          {% if ex.note is defined %}<span class="ex-note">{{ ex.note }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 長母音の例（あれば） -->
+    {% if rule.examples_long is defined and rule.examples_long %}
+    <div class="rule-section">
+      <h3>✅ 長母音の例</h3>
+      <div class="word-examples">
+        {% for ex in rule.examples_long %}
+        <div class="word-chip">
+          <span class="ex-word">{{ ex.word }}</span>
+          <span class="ex-ipa">/{{ ex.ipa }}/</span>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- 例外 -->
+    {% if rule.exceptions %}
+    <div class="rule-section exception-section">
+      <h3>⚠️ 例外</h3>
+      <div class="word-examples">
+        {% for ex in rule.exceptions %}
+        <div class="word-chip exception">
+          <span class="ex-word">{{ ex.word }}</span>
+          <span class="ex-ipa">/{{ ex.ipa }}/</span>
+          {% if ex.note is defined %}<span class="ex-note">{{ ex.note }}</span>{% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+{% endfor %}
+
+<!-- Phase 2 へのリンク -->
+<div class="practice-link-bar">
+  <a href="/practice/quiz?category={{ category.id }}" class="btn btn-secondary">🎯 この発音パターンで問題を解く</a>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}PhonIQ - 発音記号で英語をマスター{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Phon<span>IQ</span></h1>
+    <p class="hero-sub">発音記号（IPA）に特化した英単語学習アプリ</p>
+    <p class="hero-desc">
+      スペルと発音が一致しない英語でも、発音記号を知れば初見の単語がすぐに読めるようになります。<br>
+      まずは理論を学び、次に問題で実践しましょう。
+    </p>
+    <div class="hero-buttons">
+      <a href="/theory" class="btn btn-primary">📖 理論を学ぶ（Phase 1）</a>
+      <a href="/practice" class="btn btn-secondary">🎯 問題を解く（Phase 2）</a>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature-card">
+    <div class="feature-icon">🔤</div>
+    <h3>文字のつながりから学ぶ</h3>
+    <p>ea, oo, ou などのスペルパターンから発音を予測できるようになります</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🔣</div>
+    <h3>IPA記号から学ぶ</h3>
+    <p>国際音声記号（IPA）の各記号の意味と発音方法を体系的に学びます</p>
+  </div>
+  <div class="feature-card">
+    <div class="feature-icon">🎯</div>
+    <h3>3ステップ問題演習</h3>
+    <p>A:発音を聞く → B:アクセントのある音節を選ぶ → C:発音記号から単語を選ぶ</p>
+  </div>
+</section>
+{% endblock %}

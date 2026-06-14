@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}問題を解く | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>🎯 問題を解く</h1>
+  <p>発音を聞いて、音節・アクセント・発音記号を確認しましょう</p>
+</div>
+
+<div class="practice-start">
+  <div class="start-card">
+    <h2>ランダムに始める</h2>
+    <p>全ての単語からランダムに出題されます</p>
+    <a href="/practice/quiz" class="btn btn-primary">スタート 🚀</a>
+  </div>
+
+  <div class="start-card">
+    <h2>カテゴリから始める</h2>
+    <p>特定の発音パターンに絞って練習できます</p>
+    <div class="category-buttons" id="categoryButtons">
+      <!-- JS で動的に生成 -->
+      <p class="loading-text">読み込み中...</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // カテゴリ一覧を API から取得して表示
+  fetch('/api/categories')
+    .then(r => r.json())
+    .then(cats => {
+      const LABELS = {
+        short_a: '短母音 /æ/',
+        long_a: '長母音 /eɪ/',
+        short_e: '短母音 /ɛ/',
+        short_i: '短母音 /ɪ/',
+        long_i: '長母音 /aɪ/',
+        short_o: '短母音 /ɑ/',
+        short_u: '短母音 /ʌ/',
+        ea: 'ea → /iː/',
+        ea_exception: 'ea → /ɛ/ (例外)',
+        oo_long: 'oo → /uː/',
+        oo_short: 'oo → /ʊ/',
+        ou_ow: 'ou/ow',
+        ar: 'ar → /ɑːr/',
+        er: 'er → /ɜːr/',
+        ir: 'ir → /ɜːr/',
+        or: 'or → /ɔːr/',
+        ur: 'ur → /ɜːr/',
+        schwa: 'シュワー /ə/',
+      };
+      const container = document.getElementById('categoryButtons');
+      container.innerHTML = '';
+      cats.forEach(cat => {
+        const a = document.createElement('a');
+        a.href = `/practice/quiz?category=${cat}`;
+        a.className = 'btn btn-outline';
+        a.textContent = LABELS[cat] || cat;
+        container.appendChild(a);
+      });
+    });
+</script>
+{% endblock %}

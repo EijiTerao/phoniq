@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}問題 | PhonIQ{% endblock %}
+
+{% block content %}
+<div class="quiz-container">
+  <div class="quiz-header">
+    <a href="/practice" class="back-link">← 問題選択に戻る</a>
+    <div id="genderToggle" class="gender-toggle">
+      <span>声の種類:</span>
+      <button id="btnFemale" class="gender-btn active" onclick="setGender('female')">👩 女声</button>
+      <button id="btnMale" class="gender-btn" onclick="setGender('male')">👨 男声</button>
+    </div>
+  </div>
+
+  <!-- 問題エリア -->
+  <div id="quizArea" class="quiz-area">
+    <div class="loading-spinner">
+      <p>問題を生成中...</p>
+    </div>
+  </div>
+
+  <!-- ナビゲーション -->
+  <div class="quiz-nav">
+    <button id="btnNext" class="btn btn-primary" onclick="loadNextQuestion()" style="display:none;">次の問題 →</button>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+<script>
+  // URL パラメータを JS に渡す
+  const WORD_FILTER = {{ (target_word | tojson) if target_word else 'null' }};
+  const CATEGORY_FILTER = {{ (word_filter | tojson) if word_filter else 'null' }};
+
+  // 初期ロード
+  document.addEventListener('DOMContentLoaded', () => {
+    loadNextQuestion();
+  });
+</script>
+{% endblock %}
